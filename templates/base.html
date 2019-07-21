@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VFA 122 Duty Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/69cef6d01d.js"></script>
+    <meta http-equiv="refresh" content="{{settings.refresh}}" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">VFA-122 Duty Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <!-- <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}">
+                    <a class="nav-link" href="/schedule">Schedule</a>
+                </li> -->
+                <li class="nav-item {%if request.path == '/parking'%}active{%endif%}"">
+                    <a class=" nav-link" href="/parking">Parking</a>
+                </li>
+                <li class="nav-item {%if request.path == '/jets'%}active{%endif%}"">
+                    <a class=" nav-link" href="/jets">Jets</a>
+                </li>
+                <li class="nav-item {%if request.path == '/settings'%}active{%endif%}"">
+                    <a class=" nav-link" href="/settings">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid m-0 p-0">
+        <div class="m-0 p-0 row">
+
+            <div class="chatbox d-none d-lg-inline col-0 col-lg-2 m-0 p-1">
+                <!-- HERE IS THE CHAT STUFF  -->
+
+                <div class="d-flex flex-column">
+
+                    <div id="panelBody" class="border rounded align-items-start bg-white text-dark">
+                        {%for msg in settings.messages%}
+                        <p class="my-2 p-0">{{msg}}</p>
+                        {%endfor%}
+                    </div>
+
+
+                    <form class="mt-2" action="/message" method="POST">
+                        <div class="d-flex align-items-end">
+                            <!-- <div class="col">
+      <input type="text" class="form-control" placeholder="Name">
+    </div> -->
+                            <div class="col p-0 ">
+                                <input type="text" name="new_message" class="form-control" placeholder="Message">
+                                <input type="text" name="cur_path" class="d-none form-control" value="{{request.path}}">
+                            </div>
+                            <div class="p-0 m-0 form-row">
+                                <button class="btn btn-success btn-lsm">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="mt-2" action="/message/delete" method="POST">
+                        <button class="btn btn-primary btn-lsm m-2">Clear Messages</button>
+                        <input type="text" name="cur_path" class="d-none form-control" value="{{request.path}}">
+                    </form>
+                </div>
+
+
+
+
+                <!-- DONE WITH THE CHAT STUFF -->
+            </div>
+
+
+            <div class="col-lg-10 col-12 p-1">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        var interval = 3000; //3 seconds
+
+        function recvMessage() {
+            $.ajax({
+                url: "/_update_messages",
+                type: "GET",
+                success: function (result) {
+                    $("#panelBody").html(result);
+                },
+                complete: function (result) {
+                    setTimeout(recvMessage, interval);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            setTimeout(recvMessage, interval);
+        });
+    </script>
+
+</body>
+
+</html>
