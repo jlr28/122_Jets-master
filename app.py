@@ -1,4 +1,4 @@
-from flask import Flask, render_template, render_template_string, request, redirect
+from flask import Flask, render_template, render_template_string, request, redirect, url_for, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from random import randint, choice
 import os
@@ -6,6 +6,7 @@ import pickle
 
 app = Flask(__name__)
 
+app.secret_key = os.urandom(12)
 
 ##Setup the Database:
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -31,6 +32,7 @@ class Jet(db.Model):
     ordnance = db.Column(db.String(64), default="")
     remarks = db.Column(db.String(512), default="")
     status = db.Column(db.Boolean, default = False)
+
 
     def __repr__(self):
         return str(self.side)
@@ -68,7 +70,6 @@ def fill_parking():
         exists = False
     return park_list
 
-
 def save_settings(settings):
     with open('settings.pickle',"wb") as f:
         pickle.dump(settings,f)
@@ -95,23 +96,50 @@ except: settings = {'refresh':30, 'rows':3, 'per_row':8, 'msg_lines':15,
 #db.create_all()
 #seed_db()
 
-
 ## Only shows the cover page for the site
 @app.route('/')
-@app.route('/schedule')
 def hello_world():
-    return render_template('index.html',settings=settings)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('index.html',settings=settings)
+
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'eagles' and request.form['username'] == 'ODO':
+        session['logged_in'] = True
+        return redirect('/')
+    elif request.form['password'] == 'eagles' and request.form['username'] == 'SDO':
+        session['logged_in'] = True
+        return redirect('/')
+    elif request.form['password'] == 'eagles' and request.form['username'] == 'MX':
+        session['logged_in'] = True
+        return redirect('/')
+    else:
+        return hello_world()
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return hello_world()
 
 ## Lists the parking spots available and fills in jets
 @app.route('/parking')
 def parking_map():
-    return render_template('parking.html',jets=fill_parking(),settings=settings)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('parking.html',jets=fill_parking(),settings=settings)
 
 
 @app.route('/jets', methods=['GET'])
 def jet_list():
-    if request.method == 'GET':
-        return render_template('jets.html', jets=get_jets(),settings=settings)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        if request.method == 'GET':
+            return render_template('jets.html', jets=get_jets(),settings=settings)
 
 @app.route('/jets/add', methods=['POST'])  
 def add_jet():      
@@ -212,12 +240,12 @@ def add_message():
     settings['messages'].append(request.form.get("new_message"))
     settings['messages'] = settings['messages'][-settings['msg_lines']:]
     cur_path = request.form.get("cur_path")
+
     save_settings(settings)
     return redirect(cur_path)
 
 @app.route("/message/delete",methods=['POST'])
 def delete_messages():
-    ## add on new messages to the message list
     settings['messages']=[]
     cur_path = request.form.get("cur_path")
     save_settings(settings)
@@ -225,15 +253,18 @@ def delete_messages():
         
 @app.route("/settings",methods=['GET','POST'])
 def get_settings():
-    if request.method == 'POST':
-        for k in ['rows', 'refresh','per_row','msg_lines']:
-            settings[k]=int(request.form.get(k))
-        if settings['refresh']<5:
-            settings['refresh']=5 
-        save_settings(settings)
-        return redirect('/settings')
-    if request.method == 'GET':
-        return render_template('settings.html', settings=settings)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        if request.method == 'POST':
+            for k in ['rows', 'refresh','per_row','msg_lines']:
+                settings[k]=int(request.form.get(k))
+            if settings['refresh']<5:
+                settings['refresh']=5
+            save_settings(settings)
+            return redirect('/settings')
+        if request.method == 'GET':
+            return render_template('settings.html', settings=settings)
 
 @app.route("/_update_messages")
 def sendMessagesList():
