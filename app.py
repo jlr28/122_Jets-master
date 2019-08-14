@@ -1,23 +1,48 @@
 from flask import Flask, render_template, render_template_string, request, redirect, url_for, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from random import randint, choice
+from openpyxl import load_workbook
 import os
 import pickle
+import csv
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(12)
 
+global user
+
+with open('static/test.csv', newline='') as csvfile:
+    skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
+    print(skedreader[0][9])
+
+
 ##Setup the Database:
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-## Setup the JET Class / Table in the Database:
+## Setup the sked Class / Table in the Database:
 
+class Sked(db.Model):
+    __tablename__='sked'
+    id = db.Column(db.Integer, primary_key=True)
+    evt = db.Column(db.Integer, nullable=True)
+    callsign = db.Column(db.String(64), nullable=True)
+    times = db.Column(db.String(64), nullable=True)
+    aircraft = db.Column(db.String(64), nullable=True)
+    aircrew = db.Column(db.String(64), nullable=True)
+    mission = db.Column(db.String(64), nullable=True)
+    launch = db.Column(db.String(64), nullable=True)
+    out = db.Column(db.String(64), nullable=True)
+    recover = db.Column(db.String(64), nullable=True)
+    remarks = db.Column(db.String(512), nullable=True)
+
+## Setup the JET Class / Table in the Database:
 
 class Jet(db.Model):
     __tablename__ = 'jets'
@@ -39,13 +64,24 @@ class Jet(db.Model):
 
 def num_spots():
     return settings['rows']*settings['per_row']
+
 def seed_db():
     for i in range(1,20):
-        new_jet = Jet(id=i, side=randint(400,700),parking=randint(1,num_parking_spots), fuel=choice([True,False]),
-        dta=choice([True,False]),arm=choice([True,False]),flying=choice([True,False,False,False]),status=choice([True,True,True,False]))
+        new_jet = Jet(id=i, side=randint(400,700),parking=randint(1,40), fuel=choice([True,False]),
+         dta=choice([True,False]),arm=choice([True,False]),flying=choice([True,False,False,False]),status=choice([True,True,True,False]))
         db.session.add(new_jet)
         db.session.commit()
     return True
+
+def seed_sked_db():
+    for j in range(len(skedreader)):
+        new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
+        aircraft=skedreader[j][3], aircrew=skedreader[j][4], mission=skedreader[j][5], launch=skedreader[j][6], out=skedreader[j][7],
+        recover=skedreader[j][8], remarks=skedreader[j][9])
+        db.session.add(new_event)
+        db.session.commit()
+    return True
+
 
 def insert_jet(side_num):
     new_jet = Jet(id=Jet.query.order_by(Jet.id.desc()).first().id+1, side=side_num)
@@ -54,6 +90,10 @@ def insert_jet(side_num):
 
 def get_jets ():
     return Jet.query.order_by(Jet.side).all()
+
+def get_sked ():
+    sked_list = Sked.query.order_by(Sked.id).all()
+    return sked_list
 
 def fill_parking():
     jet_list = get_jets()
@@ -82,8 +122,7 @@ def load_settings():
 
 def getHtml():
     text = '''{%for msg in settings.messages%}
-                <p class="my-2 p-0">{{msg}}</p>
-                {%endfor%}'''
+{{msg}}{%endfor%}'''
     return render_template_string(text, settings=settings)
 
 
@@ -95,6 +134,7 @@ except: settings = {'refresh':30, 'rows':3, 'per_row':8, 'msg_lines':15,
 #db.drop_all()
 #db.create_all()
 #seed_db()
+#seed_sked_db()
 
 ## Only shows the cover page for the site
 @app.route('/')
@@ -104,25 +144,36 @@ def hello_world():
     else:
         return render_template('index.html',settings=settings)
 
+@app.route('/schedule')
+def schedule():
+#    if not session.get('logged_in'):
+#        return render_template('login.html')
+#    else:
+    return render_template('schedule.html',skeds=get_sked(), settings=settings)
 
-@app.route('/login', methods=['POST'])
+
+@app.route('/login', methods=['GET','POST'])
 def do_admin_login():
-    if request.form['password'] == 'eagles' and request.form['username'] == 'ODO':
-        session['logged_in'] = True
-        return redirect('/')
-    elif request.form['password'] == 'eagles' and request.form['username'] == 'SDO':
-        session['logged_in'] = True
-        return redirect('/')
-    elif request.form['password'] == 'eagles' and request.form['username'] == 'MX':
-        session['logged_in'] = True
+    if session.get('logged_in'):
         return redirect('/')
     else:
-        return hello_world()
+        username = request.form.get('username', '')
+        password = request.form.get('password', '')
+        if request.method == 'POST':
+                if (username,password) in [('ODO','eagles'),('SDO','eagles'),('MX','eagles')]:
+                    session['logged_in'] = True
+                    response = redirect('/')
+                    response.set_cookie('username', username)
+                    return response
+        return get('login.html').render(username=username)
+
 
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return hello_world()
+    response = redirect('/')
+    response.set_cookie('username','')
+    return response
 
 ## Lists the parking spots available and fills in jets
 @app.route('/parking')
@@ -236,8 +287,9 @@ def jet_edit(i):
 
 @app.route("/message",methods=['POST'])
 def add_message():
+    username = request.cookies.get('username')
     ## add on new messages to the message list
-    settings['messages'].append(request.form.get("new_message"))
+    settings['messages'].append(username + ': ' +request.form.get("new_message"))
     settings['messages'] = settings['messages'][-settings['msg_lines']:]
     cur_path = request.form.get("cur_path")
 
