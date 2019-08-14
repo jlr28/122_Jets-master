@@ -14,7 +14,7 @@ global user
 
 with open('static/test.csv', newline='') as csvfile:
     skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
-    print(skedreader[0][9])
+
 
 
 ##Setup the Database:
@@ -95,6 +95,7 @@ def get_sked ():
     sked_list = Sked.query.order_by(Sked.id).all()
     return sked_list
 
+
 def fill_parking():
     jet_list = get_jets()
     park_list = []
@@ -149,7 +150,8 @@ def schedule():
 #    if not session.get('logged_in'):
 #        return render_template('login.html')
 #    else:
-    return render_template('schedule.html',skeds=get_sked(), settings=settings)
+    return render_template('schedule.html',sked=get_sked(), settings=settings)
+
 
 
 @app.route('/login', methods=['GET','POST'])
