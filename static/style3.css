@@ -1,0 +1,38 @@
+table{
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+}
+
+table th {
+    word-wrap: break-word;
+    text-align: center;
+    background-color: #3a6070;
+    color: #FFF;
+    padding: 1px 1px 1px 1px;
+}
+
+th.eevent, th.llaunch, th.oout, th.rrecover {
+    width: 5%;
+}
+
+th.ccallsign, th.ttimes{
+    width: 12%;
+}
+
+th.aaircraft, th.mmission {
+    width:8%;
+}
+
+th.aaircrew, th.rremarks {
+    width: 20%;
+}
+
+table td {
+    border: 1px solid #000000;
+    padding: 4px 8px;
+}
+
+table tr:nth-child(odd) td{
+    background-color: #666666;
+}

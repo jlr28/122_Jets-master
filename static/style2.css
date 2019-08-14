@@ -7,6 +7,10 @@ outline: none;
 }
 body {
 font-family: Arial;
+background-image: url('hornet2.jpg');
+height: 500px; /* You must set a specified height */
+background-position: center; /* Center the image */
+background-size: cover; /* Resize the background image to cover the entire container */
 background-color: #3498DB;
 padding: 50px;
 }
@@ -22,7 +26,7 @@ border-radius: 5px
 
 .app-title {
 text-align: center;
-color: #777;
+color: #000;
 }
 
 .login-form {
