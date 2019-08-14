@@ -2,8 +2,13 @@
 
 {% block content %}
 
-<div style="min-width: 100%" class="card-deck container-fluid my-1 mx-0 p-0">
+
+
+<div style="min-width: 100%" class="card-deck container-fluid my-1 mx=0 p-2">
+
+
     <div class="row mx-auto">
+
         {% for jet in jets %}
 
         <div style="min-width:{{100/settings.per_row}}%" class="park-card p-0 mx-0 my-1 card text-center text-white
@@ -15,7 +20,6 @@
                     {%else %}
                         bg-warning 
                     {%endif%}
-            
                 {% else %}
                     bg-danger
                 {% endif %}
@@ -27,7 +31,7 @@
         {% endif %}
             ">
 
-            <div class="text-left card-header">{{ jet.parking }}
+            <div class="text-left card-header py-1" onload="myFunction()">{{jet.parking}}
             {%if jet.side != '-' %}
                 {% if jet.flying %}
                 <a href="/land/{{jet.id}}"><i class="text-white pl-4 pr-2 fas fa-plane-arrival"></i></a>
@@ -40,9 +44,9 @@
             </div>
 
 
-            <div class="card-body p-1">
+            <div class="card-body p-0">
                 {% if jet.side == '-' %}
-                <form  class="py-2" action="/park/{{jet.parking}}" method="POST">
+                <form  class="py-0" action="/park/{{jet.parking}}" method="POST">
                     <select name="id_landed" onchange="this.form.submit()">
                         <option value="">-</option>
                         {% for jet in jets %}
@@ -59,7 +63,7 @@
 
                 {%if jet.side != '-' %}
 
-                <form  class="py-2" action="/park_edit/{{jet.id}}" method="POST">
+                <form  class="py-0" action="/park_edit/{{jet.id}}" method="POST">
 
                     <div class="form-check form-check-inline">
                         <input onchange="this.form.submit()" class="form-check-input" type="checkbox" name="fuel"{% if jet.fuel %} checked

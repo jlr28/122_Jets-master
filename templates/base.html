@@ -44,9 +44,17 @@
                     <a class=" nav-link" href="/settings">Settings</a>
                 </li>
                 <li class="nav-item {%if request.path == '/login'%}active{%endif%}"">
-                    <a class=" nav-link" href="/login">Login</a>
+                        <a class=" nav-link" href="/login">Login</a>
+                </li>
                 <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
                     <a class=" nav-link" href="/logout">Logout</a>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="text" style="font-size:160%;">
+                    <a href="//24timezones.com/usa_time/ca_kings/lemoore.php" style="text-decoration: none" class="clock24" id="tz24-1564847770-cu114117-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIwIiwic2hvd3NlY29uZHMiOiIxIiwic2hvd3RpbWV6b25lIjoiMCIsInR5cGUiOiJkIiwibGFuZyI6ImVuIn0=" title="Lemoore what time is now" target="_blank"></a>
+                    <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
                 </li>
             </ul>
         </div>
@@ -59,13 +67,8 @@
                 <!-- HERE IS THE CHAT STUFF  -->
 
                 <div class="d-flex flex-column">
-
-                    <div id="panelBody" class="border rounded align-items-start bg-white text-dark">
-                        {%for msg in settings.messages%}
-                        <p class="my-2 p-0">{{msg}}</p>
-                        {%endfor%}
-                    </div>
-
+                    <textarea id="panelBody" class="border rounded align-items-start bg-white text-dark px-1" spellcheck="false" rows="15" style="text-align:left; overflow:scroll;">{%for msg in settings.messages%}
+{{msg}}{%endfor%}</textarea>
 
                     <form class="mt-2" action="/message" method="POST">
                         <div class="d-flex align-items-end">
@@ -93,7 +96,6 @@
                 <!-- DONE WITH THE CHAT STUFF -->
             </div>
 
-
             <div class="col-lg-10 col-12 p-1">
                 {% block content %}
                 {% endblock %}
@@ -117,11 +119,17 @@
                     setTimeout(recvMessage, interval);
                 }
             });
+            var textarea = document.getElementById('panelBody');
+            textarea.scrollTop = textarea.scrollHeight;
         }
 
         $(document).ready(function () {
             setTimeout(recvMessage, interval);
         });
+
+        var textarea = document.getElementById('panelBody');
+        textarea.scrollTop = textarea.scrollHeight;
+
     </script>
 
 </body>
