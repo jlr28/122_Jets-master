@@ -64,7 +64,11 @@
     {% block content %}
     {% endblock %}
 </div>
-
+<form method="post" action="/schedule/upload" enctype="multipart/form-data">
+    <input type=file name=file>
+    <input type=submit value=Upload>
+    <div>ONLY "SCHEDULE.csv" FILE ACCEPTED</div>
+</form>
 </body>
 
 </html>
