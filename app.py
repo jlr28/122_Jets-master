@@ -2,6 +2,7 @@ from flask import Flask, render_template, render_template_string, request, redir
 from flask_sqlalchemy import SQLAlchemy
 from random import randint, choice
 from openpyxl import load_workbook
+from werkzeug.utils import secure_filename
 import os
 import pickle
 import csv
@@ -12,9 +13,10 @@ app.secret_key = os.urandom(12)
 
 global user
 
-with open('static/test.csv', newline='') as csvfile:
-    skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
-
+##CSV Upload for sked page
+UPLOAD_FOLDER = 'static'
+ALLOWED_EXTENSIONS = {'csv'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 ##Setup the Database:
@@ -74,6 +76,8 @@ def seed_db():
     return True
 
 def seed_sked_db():
+    with open('static/SCHEDULE.csv', newline='') as csvfile:
+        skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
     for j in range(len(skedreader)):
         new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
         aircraft=skedreader[j][3], aircrew=skedreader[j][4], mission=skedreader[j][5], launch=skedreader[j][6], out=skedreader[j][7],
@@ -152,6 +156,35 @@ def schedule():
 #    else:
     return render_template('schedule.html',sked=get_sked(), settings=settings)
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/schedule/upload', methods=['GET', 'POST'])
+def upload_file():
+
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return redirect('/schedule')
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            redirect('/schedule')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            ##Clear old sked db
+            new_sked_list = get_sked()
+            for lines in range(len(new_sked_list)):
+                Sked.query.filter_by(id=lines).delete()
+
+            ##Run Seed sked db
+            seed_sked_db()
+            return redirect('/schedule')
+        return redirect('/schedule')
 
 
 @app.route('/login', methods=['GET','POST'])
