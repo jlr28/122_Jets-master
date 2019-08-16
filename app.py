@@ -180,7 +180,6 @@ def upload_file():
             new_sked_list = get_sked()
             for lines in range(len(new_sked_list)):
                 Sked.query.filter_by(id=lines).delete()
-
             ##Run Seed sked db
             seed_sked_db()
             return redirect('/schedule')
@@ -213,17 +212,17 @@ def logout():
 ## Lists the parking spots available and fills in jets
 @app.route('/parking')
 def parking_map():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
+#    if not session.get('logged_in'):
+#        return render_template('login.html')
+#    else:
         return render_template('parking.html',jets=fill_parking(),settings=settings)
 
 
 @app.route('/jets', methods=['GET'])
 def jet_list():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
+#    if not session.get('logged_in'):
+#        return render_template('login.html')
+#    else:
         if request.method == 'GET':
             return render_template('jets.html', jets=get_jets(),settings=settings)
 
@@ -262,6 +261,23 @@ def park_jet(i):
     Jet.query.get(int(request.form.get("id_landed"))).parking = int(i)
     return redirect("/parking")
 
+@app.route("/sked_edit/<i>", methods=['POST'])
+def sked_edit(i):
+    print(request.form)
+
+    Sked.query.get(int(i)).evt = request.form.get("evt")
+    Sked.query.get(int(i)).callsign = request.form.get("cs")
+    Sked.query.get(int(i)).times = request.form.get("tm")
+    Sked.query.get(int(i)).aircraft = request.form.get("ac")
+    Sked.query.get(int(i)).aircrew = request.form.get("acrw")
+    Sked.query.get(int(i)).mission = request.form.get("msn")
+    Sked.query.get(int(i)).launch = request.form.get("lnch")
+    Sked.query.get(int(i)).out = request.form.get("out")
+    Sked.query.get(int(i)).recover = request.form.get("rcvr")
+    Sked.query.get(int(i)).remarks = request.form.get("rmks")
+    return redirect("/schedule")
+
+
 @app.route("/park_edit/<i>",methods=['POST'])
 def park_edit(i):
     ## Get the id and info from the parking form and update database
@@ -284,6 +300,7 @@ def park_edit(i):
         Jet.query.get(int(i)).status = True
     else:
         Jet.query.get(int(i)).status = False
+
     Jet.query.get(int(i)).ordnance = request.form.get("ordnance")
     Jet.query.get(int(i)).remarks = request.form.get("remarks")
 
@@ -340,9 +357,9 @@ def delete_messages():
         
 @app.route("/settings",methods=['GET','POST'])
 def get_settings():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
+#    if not session.get('logged_in'):
+#        return render_template('login.html')
+#    else:
         if request.method == 'POST':
             for k in ['rows', 'refresh','per_row','msg_lines']:
                 settings[k]=int(request.form.get(k))
