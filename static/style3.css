@@ -7,25 +7,40 @@ table{
 table th {
     word-wrap: break-word;
     text-align: center;
-    background-color: #3a6070;
+    background-color: #2E417F;
     color: #FFF;
-    padding: 1px 1px 1px 1px;
 }
 
-th.eevent, th.llaunch, th.oout, th.rrecover {
+th.eevent{
+    width: 3%
+}
+
+th.llaunch, th.oout, th.rrecover {
     width: 5%;
 }
 
-th.ccallsign, th.ttimes{
+th.ccallsign {
+    width: 10%
+}
+
+th.ttimes{
     width: 12%;
 }
 
-th.aaircraft, th.mmission {
+th.aaircraft {
+    width: 6%
+}
+
+th.mmission {
     width:8%;
 }
 
-th.aaircrew, th.rremarks {
-    width: 20%;
+th.aaircrew {
+    width: 20%
+}
+
+th.rremarks {
+    width: 26%;
 }
 
 table td {
@@ -33,6 +48,24 @@ table td {
     padding: 4px 8px;
 }
 
-table tr:nth-child(odd) td{
-    background-color: #666666;
+form {
+    tr:nth-child(odd) td{
+        background-color: #666666;
+    }
+}
+
+input[type="text"]{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: #FFF;
+    background: transparent;
+    border: none;
+    outline-width: 0;
+}
+
+input.rmks {
+    text-align: left;
 }
