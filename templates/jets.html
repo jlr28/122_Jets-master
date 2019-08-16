@@ -47,7 +47,7 @@
 
                 <div class="p-1 card-body">
 
-                    <form class="py-1" action="/jet_edit/{{jet.id}}" method="POST">
+                    <form class="py-1" action="/jet_edit/{{jet.id}}" autocomplete="off" method="POST">
 
                         <div class="form-check form-check-inline">
                             <input onchange="this.form.submit()" class="form-check-input" type="checkbox" name="fuel"
@@ -109,7 +109,7 @@
         {% endfor %}
     </div>
 </div>
-<form class="py-5 form-inline" action="/jets/add" method="POST">
+<form class="py-5 form-inline" action="/jets/add" autocomplete="off" method="POST">
 
 
     <input type="text" class="form-control form-control-lg" name="new_side"

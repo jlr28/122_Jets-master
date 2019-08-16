@@ -8,7 +8,7 @@
 {% block content %}
 
 </head>
-<table id="skedtable" spellcheck="false" contenteditable>
+<table id="skedtable" spellcheck="false">
   <tr>
       <th colspan="10" style="font-size: 150%">VFA-122 FLIGHT SCHEDULE</th>
   </tr>
@@ -26,18 +26,20 @@
   </tr>
 
     {% for line in sked %}
+    <form action="/sked_edit/{{line.id}}" autocomplete="off" method="POST">
     <tr>
-        <td>{{line.evt}}</td>
-        <td>{{line.callsign}}</td>
-        <td>{{line.times}}</td>
-        <td>{{line.aircraft}}</td>
-        <td>{{line.aircrew}}</td>
-        <td>{{line.mission}}</td>
-        <td>{{line.launch}}</td>
-        <td>{{line.out}}</td>
-        <td>{{line.recover}}</td>
-        <td>{{line.remarks}}</td>
+        <td><input name="evt" onchange="this.form.submit()" type="text" value="{{line.evt}}"></td>
+        <td><input name="cs" onchange="this.form.submit()" type="text" value="{{line.callsign}}"></td>
+        <td><input name="tm" onchange="this.form.submit()" type="text" value="{{line.times}}"></td>
+        <td><input name="ac" onchange="this.form.submit()" type="text" value="{{line.aicraft}}"></td>
+        <td><input name="acrw" onchange="this.form.submit()" type="text" value="{{line.aircrew}}"></td>
+        <td><input name="msn" onchange="this.form.submit()" type="text" value="{{line.mission}}"></td>
+        <td><input name="lnch" onchange="this.form.submit()" type="text" value="{{line.launch}}"></td>
+        <td><input name="out" onchange="this.form.submit()" type="text" value="{{line.out}}"></td>
+        <td><input name="rcvr" onchange="this.form.submit()" type="text" value="{{line.recover}}"></td>
+        <td><input class="rmks" name="rmks" onchange="this.form.submit()" type="text" value="{{line.remarks}}"></td>
     </tr>
+    </form>
     {% endfor %}
 
 </table>

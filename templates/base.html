@@ -40,12 +40,15 @@
                 <li class="nav-item {%if request.path == '/jets'%}active{%endif%}"">
                     <a class=" nav-link" href="/jets">Jets</a>
                 </li>
+                <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}"">
+                    <a class=" nav-link" href="/schedule">Schedule</a>
+                </li>
                 <li class="nav-item {%if request.path == '/settings'%}active{%endif%}"">
                     <a class=" nav-link" href="/settings">Settings</a>
                 </li>
-                <li class="nav-item {%if request.path == '/login'%}active{%endif%}"">
+                <!--<li class="nav-item {%if request.path == '/login'%}active{%endif%}"">
                         <a class=" nav-link" href="/login">Login</a>
-                </li>
+                </li>-->
                 <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
                     <a class=" nav-link" href="/logout">Logout</a>
                 </li>
@@ -70,7 +73,7 @@
                     <textarea id="panelBody" class="border rounded align-items-start bg-white text-dark px-1" spellcheck="false" rows="15" style="text-align:left; overflow:scroll;">{%for msg in settings.messages%}
 {{msg}}{%endfor%}</textarea>
 
-                    <form class="mt-2" action="/message" method="POST">
+                    <form class="mt-2" action="/message" autocomplete="off" method="POST">
                         <div class="d-flex align-items-end">
                             <!-- <div class="col">
       <input type="text" class="form-control" placeholder="Name">
@@ -84,7 +87,7 @@
                             </div>
                         </div>
                     </form>
-                    <form class="mt-2" action="/message/delete" method="POST">
+                    <form class="mt-2" action="/message/delete" autocomplete="off" method="POST">
                         <button class="btn btn-primary btn-lsm m-2">Clear Messages</button>
                         <input type="text" name="cur_path" class="d-none form-control" value="{{request.path}}">
                     </form>

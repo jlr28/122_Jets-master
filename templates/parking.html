@@ -46,7 +46,7 @@
 
             <div class="card-body p-0">
                 {% if jet.side == '-' %}
-                <form  class="py-0" action="/park/{{jet.parking}}" method="POST">
+                <form  class="py-0" action="/park/{{jet.parking}}" autocomplete="off" method="POST">
                     <select name="id_landed" onchange="this.form.submit()">
                         <option value="">-</option>
                         {% for jet in jets %}
@@ -63,7 +63,7 @@
 
                 {%if jet.side != '-' %}
 
-                <form  class="py-0" action="/park_edit/{{jet.id}}" method="POST">
+                <form  class="py-0" action="/park_edit/{{jet.id}}" autocomplete="off" method="POST">
 
                     <div class="form-check form-check-inline">
                         <input onchange="this.form.submit()" class="form-check-input" type="checkbox" name="fuel"{% if jet.fuel %} checked
