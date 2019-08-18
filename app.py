@@ -78,12 +78,17 @@ def seed_db():
 def seed_sked_db():
     with open('static/SCHEDULE.csv', newline='') as csvfile:
         skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
-    for j in range(len(skedreader)):
-        new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
-        aircraft=skedreader[j][3], aircrew=skedreader[j][4], mission=skedreader[j][5], launch=skedreader[j][6], out=skedreader[j][7],
-        recover=skedreader[j][8], remarks=skedreader[j][9])
-        db.session.add(new_event)
-        db.session.commit()
+    for j in range(len(skedreader)+5):
+        if j < len(skedreader):
+            new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
+            aircraft=skedreader[j][3], aircrew=skedreader[j][4], mission=skedreader[j][5], launch=skedreader[j][6], out=skedreader[j][7],
+            recover=skedreader[j][8], remarks=skedreader[j][9])
+            db.session.add(new_event)
+            db.session.commit()
+        elif j >= len(skedreader):
+            new_event = Sked(id=j, evt="", callsign="", times="", aircraft="", aircrew="", mission="", launch="", out="", recover="", remarks="")
+            db.session.add(new_event)
+            db.session.commit()
     return True
 
 
@@ -151,10 +156,10 @@ def hello_world():
 
 @app.route('/schedule')
 def schedule():
-#    if not session.get('logged_in'):
-#        return render_template('login.html')
-#    else:
-    return render_template('schedule.html',sked=get_sked(), settings=settings)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('schedule.html',sked=get_sked(), settings=settings)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -185,7 +190,6 @@ def upload_file():
             return redirect('/schedule')
         return redirect('/schedule')
 
-
 @app.route('/login', methods=['GET','POST'])
 def do_admin_login():
     if session.get('logged_in'):
@@ -194,7 +198,7 @@ def do_admin_login():
         username = request.form.get('username', '')
         password = request.form.get('password', '')
         if request.method == 'POST':
-                if (username,password) in [('ODO','eagles'),('SDO','eagles'),('MX','eagles')]:
+                if (username,password) in [('ODO','eagles'),('SDO','eagles'),('MX','eagles'),('CO','eagles'),('MO','eagles'),('SKEDS','eagles'),('XO','eagles'),('BOSS','eagles')]:
                     session['logged_in'] = True
                     response = redirect('/')
                     response.set_cookie('username', username)
@@ -212,17 +216,17 @@ def logout():
 ## Lists the parking spots available and fills in jets
 @app.route('/parking')
 def parking_map():
-#    if not session.get('logged_in'):
-#        return render_template('login.html')
-#    else:
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
         return render_template('parking.html',jets=fill_parking(),settings=settings)
 
 
 @app.route('/jets', methods=['GET'])
 def jet_list():
-#    if not session.get('logged_in'):
-#        return render_template('login.html')
-#    else:
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
         if request.method == 'GET':
             return render_template('jets.html', jets=get_jets(),settings=settings)
 
@@ -357,9 +361,9 @@ def delete_messages():
         
 @app.route("/settings",methods=['GET','POST'])
 def get_settings():
-#    if not session.get('logged_in'):
-#        return render_template('login.html')
-#    else:
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
         if request.method == 'POST':
             for k in ['rows', 'refresh','per_row','msg_lines']:
                 settings[k]=int(request.form.get(k))
