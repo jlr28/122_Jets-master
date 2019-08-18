@@ -1,95 +1,40 @@
-1,XPERT-11,0900/1000/1100,,REECE,ffam 999,,,,hello
-,,,,CASTILL,,,,,hello
-,,,,,,,,,hello
-2,XPERT-11,0900/1000/1100,,ALLAN/JUSTIN,ffam 999,,,,hello
-,,,,NAME1,FLY,,,,hello
-,,,,NAME2,LAND,,,,hello
-,,,,NAME3,STOP,,,,hello
-,,,,,,,,,hello
-3,XPERT-11,0900/1000/1100,,TEST/TEST/TEST,YES,,,,hello
-,,,,ALONE,NO,,,,hello
-,,,,,,,,,hello
-4,XPERT-11,0900/1000/1100,,ME,ffam 999,,,,hello
-,,,,YOU ,HOURS,,,,hello
-,,,,,BOMMMMS,,,,hello
-,,,,SOMEBODY,OUT,,,,hello
-,,,,,,,,,hello
-5,XPERT-11,0900/1000/1100,,reece/castillo,IN,,,,hello
-,,,,castillo,YUP,,,,hello
-,,,,,,,,,hello
-6,XPERT-11,0900/1000/1100,,reece/castillo,ffam 999,,,,hello
-,,,,one,dash 2 ,,,,hello
-,,,,two,form,,,,hello
-,,,,three/four,bomb,,,,hello
-,,,,,,,,,hello
-7,XPERT-11,0900/1000/1100,,REECE,ffam 999,,,,hello
-,,,,CASTILL,,,,,hello
-,,,,,,,,,hello
-8,XPERT-11,0900/1000/1100,,ALLAN/JUSTIN,ffam 999,,,,hello
-,,,,NAME1,FLY,,,,hello
-,,,,NAME2,LAND,,,,hello
-,,,,NAME3,STOP,,,,
+1,XPERT- 11,0700/0830/0930,,CDR WYNN / RETZLOFF,FERRY,,,,TAC-1  KNLC-KNJK
+,,,,Warner,FERRY,,,,
+,,,,CRATON / KOSMAN,FERRY,,,,
+,,,,Bruno,FERRY,,,,
 ,,,,,,,,,
-9,XPERT-11,0900/1000/1100,,TEST/TEST/TEST,YES,,,,NET 1
-,,,,ALONE,NO,,,,
+2,XPERT- 21,0800/0930/1030,,KING,FERRY,,,,TAC-2   KNLC-KNJK
+,,,,Reed / BAKER,FERRY,,,,
+,,,,REECE,FERRY,,,,
 ,,,,,,,,,
-10,XPERT-11,0900/1000/1100,,ME,ffam 999,,,,2508
-,,,,YOU ,HOURS,,,,
-,,,,,BOMMMMS,,,,
-,,,,SOMEBODY,OUT,,,,
+3,XPERT- 31,0900/11/1200,,HOLLENDER,FBFM Lead-X,,,,TAC-3   MOA MSN #22500/1
+,,,,Deen / BOWMAN,FBFM 102-P,,,,
 ,,,,,,,,,
-11,XPERT-11,0900/1000/1100,,reece/castillo,IN,,,,LSO
-,,,,castillo,YUP,,,,
+4,XPERT- 41,1100/1300/1400,,TIDEI,FBFM Lead-X,,,,TAC-4   MOA MSN #22501
+,,,,HEFLIN / Adams,FBFM 4301,,,,
 ,,,,,,,,,
-12,XPERT-11,0900/1000/1100,,reece/castillo,ffam 999,,,,tac-1
-,,,,one,dash 2 ,,,,
-,,,,two,form,,,,
-,,,,three/four,bomb,,,,
+5,XPERT- 51,1200/1330/1500,,ELY / KEILTY,FFAM 999,,,,R-2508 1330-1500
 ,,,,,,,,,
-13,XPERT-11,0900/1000/1100,,REECE,ffam 999,,,,tac-1
-,,,,CASTILL,,,,,
+6,XPERT- 61,1130/1330/1500,,CDR Keyser,FFAM 999,,,,R-2508 1330-1500
 ,,,,,,,,,
-14,XPERT-11,0900/1000/1100,,ALLAN/JUSTIN,ffam 999,,,,REMARKS CAN GET PRETTY LONG SO WE SHOULD TEST THIS
-,,,,NAME1,FLY,,,,
-,,,,NAME2,LAND,,,,
-,,,,NAME3,STOP,,,,
+7,XPERT- 95,1200/1400/1545,,Weideman] / FRASHER,FOCF 101-P,,,,TAC-5   R-2508 1400-1545/R-2515 1415-1545 SPIN N/W  / OPS #5240
 ,,,,,,,,,
-15,XPERT-11,0900/1000/1100,,TEST/TEST/TEST,YES,,,,NET 1
-,,,,ALONE,NO,,,,
+8,XPERT- 96,1200/1400/1545,,Gojmerac/ JOHNSON,FOCF 101-P,,,,TAC-5   R-2508 1400-1/R-2515 1415-1545 SPIN N/W 545 / OPS #5240
 ,,,,,,,,,
-16,XPERT-11,0900/1000/1100,,ME,ffam 999,,,,2508
-,,,,YOU ,HOURS,,,,
-,,,,,BOMMMMS,,,,
-,,,,SOMEBODY,OUT,,,,
+9,XPERT- 71,1500/1700/1800,,DAVIDSON,FBFM Lead-X,,,,TAC-1 MOA MSN #22502 
+,,,,SWARTZ / CDR Charlebois,FBFM 3002,,,,
 ,,,,,,,,,
-17,XPERT-11,0900/1000/1100,,reece/castillo,IN,,,,LSO
-,,,,castillo,YUP,,,,
+10,XPERT- 81,1530/1730/1915,,CDR BIEZE / Thorson,FFAM 880,,,,R-2508 1730-1915
 ,,,,,,,,,
-18,XPERT-11,0900/1000/1100,,reece/castillo,ffam 999,,,,tac-1
-,,,,one,dash 2 ,,,,
-,,,,two,form,,,,
-,,,,three/four,bomb,,,,
+11,XPERT- 91,1800/2000/2130,,GRIFFITH,FFRM Lead-X,,,,TAC-1  MOA MSN #22503
+,,,,Hall,FFRM 999-P,,,,
 ,,,,,,,,,
-19,XPERT-11,0900/1000/1100,,REECE,ffam 999,,,,tac-1
-,,,,CASTILL,,,,,
+12,XPERT- SIDE,1900/2030/2115,,Barrett,FCQL 103,,,,"TAC-3 2030 ""C"""
+,,,,Fridono,FCQL 103,,,,
+,,,,Gojmerac,FCQL 103,,,,
+,,,,Weideman,FCQL 103,,,,
+,,,,CVW-9,FCQL 999,,,,
 ,,,,,,,,,
-20,XPERT-11,0900/1000/1100,,ALLAN/JUSTIN,ffam 999,,,,REMARKS CAN GET PRETTY LONG SO WE SHOULD TEST THIS
-,,,,NAME1,FLY,,,,
-,,,,NAME2,LAND,,,,
-,,,,NAME3,STOP,,,,
-,,,,,,,,,
-21,XPERT-11,0900/1000/1100,,TEST/TEST/TEST,YES,,,,NET 1
-,,,,ALONE,NO,,,,
-,,,,,,,,,
-22,XPERT-11,0900/1000/1100,,ME,ffam 999,,,,2508
-,,,,YOU ,HOURS,,,,
-,,,,,BOMMMMS,,,,
-,,,,SOMEBODY,OUT,,,,
-,,,,,,,,,
-23,XPERT-11,0900/1000/1100,,reece/castillo,IN,,,,LSO
-,,,,castillo,YUP,,,,
-,,,,,,,,,
-24,XPERT-11,0900/1000/1100,,reece/castillo,ffam 999,,,,tac-1
-,,,,one,dash 2 ,,,,
-,,,,two,form,,,,
-,,,,three/four,bomb,,,,
+13,XPERT- SIDE,1900/2200/2245,,Scroggs / Koehr,FCQL 103,,,,"TAC-3 2200 ""C"""
+,,,,Kemalyan,FCQL 103,,,,
+,,,,CVW-9,FCQL 999,,,,
