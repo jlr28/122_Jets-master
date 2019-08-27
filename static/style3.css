@@ -52,28 +52,36 @@ th.rremarks {
 
 table td {
     border: 1px solid #000000;
-    padding: 4px 8px;
-}
-
-form {
-    tr:nth-child(odd) td{
-        background-color: #666666;
-    }
+    padding: 0px 4px 0px 8px;
+    height: 10px;
 }
 
 input[type="text"]{
     box-sizing: border-box;
     width: 100%;
+    max-height: 100%;
     padding: 0px;
-    margin: 0px;
+    margin 0px;
     text-align: center;
     font-weight: 600;
     color: #FFF;
     background: transparent;
     border: none;
-    outline-width: 0px;
+    outline: none;
 }
 
-input.rmks {
-    text-align: left;
+textarea {
+  background: transparent;
+  color: white;
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  max-height: 100%;
+  font-size: 75%;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  font-weight: 600;
+  resize: none;
+
 }
