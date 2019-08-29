@@ -1,7 +1,6 @@
 from flask import Flask, render_template, render_template_string, request, redirect, url_for, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from random import randint, choice
-from openpyxl import load_workbook
 from werkzeug.utils import secure_filename
 import os
 import pickle
@@ -15,7 +14,7 @@ global user
 
 ##CSV Upload for sked page
 UPLOAD_FOLDER = 'static'
-ALLOWED_EXTENSIONS = {'csv'}
+ALLOWED_EXTENSIONS = {'txt'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -76,8 +75,8 @@ def seed_db():
     return True
 
 def seed_sked_db():
-    with open('static/SCHEDULE.csv', newline='') as csvfile:
-        skedreader = list(csv.reader(csvfile, delimiter=',', quotechar='|'))
+    with open('static/SCHEDULE.txt', newline='') as csvfile:
+        skedreader = list(csv.reader(csvfile, delimiter='\t', quotechar='|'))
     for j in range(len(skedreader)+5):
         if j < len(skedreader):
             new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
