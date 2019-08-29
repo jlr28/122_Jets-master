@@ -268,7 +268,6 @@ def park_jet(i):
 @app.route("/sked_edit/<i>", methods=['POST'])
 def sked_edit(i):
     print(request.form)
-
     Sked.query.get(int(i)).evt = request.form.get("evt")
     Sked.query.get(int(i)).callsign = request.form.get("cs")
     Sked.query.get(int(i)).times = request.form.get("tm")
@@ -279,7 +278,7 @@ def sked_edit(i):
     Sked.query.get(int(i)).out = request.form.get("out")
     Sked.query.get(int(i)).recover = request.form.get("rcvr")
     Sked.query.get(int(i)).remarks = request.form.get("rmks")
-    return redirect("/schedule")
+    return i
 
 
 @app.route("/park_edit/<i>",methods=['POST'])

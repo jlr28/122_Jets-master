@@ -1,113 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VFA 122 Duty Portal</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/style.css">
-    <link rel="stylesheet" href="static/style3.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/69cef6d01d.js"></script>
+{% block content %}
+<div class="container-fluid m-0 p-0">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-light table-striped table-sm table-light table-borderless table-hover" id="skedtable" autocomplete="off" spellcheck="false">
+                <thead >
+                    <tr>
+                        <th colspan="10" style="font-size: 200%"><img class="manImg" src="static/pilot.png" width="130"
+                                hspace="150">VFA-122 FLIGHT SCHEDULE<img class="manImg" src="static/nfo.png" width="140"
+                                hspace="150"></th>
+                    </tr>
 
-</head>
+                    <tr>
+                        <th class="eevent">EVT</th>
+                        <th class="ccallsign">C/S</th>
+                        <th class="ttimes">BRF/TO/LND</th>
+                        <th class="aaircraft">AIRCRAFT</th>
+                        <th class="aaircrew">AIRCREW</th>
+                        <th class="mmission">MSN</th>
+                        <th class="llaunch">LNCH</th>
+                        <th class="oout">10-OUT</th>
+                        <th class="rrecover">RCVR</th>
+                        <th class="rremarks">REMARKS</th>
+                    </tr>
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">VFA-122 Duty Portal</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item {%if request.path == '/parking'%}active{%endif%}"">
-                    <a class=" nav-link" href="/parking">Parking</a>
-                </li>
-                <li class="nav-item {%if request.path == '/jets'%}active{%endif%}"">
-                    <a class=" nav-link" href="/jets">Jets</a>
-                </li>
-                <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}"">
-                    <a class=" nav-link" href="/schedule">Schedule</a>
-                </li>
-                <li class="nav-item {%if request.path == '/settings'%}active{%endif%}"">
-                    <a class=" nav-link" href="/settings">Settings</a>
-                </li>
-                <!--<li class="nav-item {%if request.path == '/login'%}active{%endif%}"">
-                        <a class=" nav-link" href="/login">Login</a>
-                </li>-->
-                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
-                    <a class=" nav-link" href="/logout">Logout</a>
-                </li>
+                </thead>
+                <tbody>
+                    {% for line in sked %}
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="text" style="font-size:160%;">
-                    <a href="//24timezones.com/usa_time/ca_kings/lemoore.php" style="text-decoration: none" class="clock24" id="tz24-1564847770-cu114117-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIwIiwic2hvd3NlY29uZHMiOiIxIiwic2hvd3RpbWV6b25lIjoiMCIsInR5cGUiOiJkIiwibGFuZyI6ImVuIn0=" title="Lemoore what time is now" target="_blank"></a>
-                    <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
-                </li>
-            </ul>
+                    <form class="schedule_form" action="/sked_edit/{{line.id}}" method="POST">
+                        <tr id="{{line.id}}_form">
+                            <td><input class="form-control" name="evt" type="text" value="{{line.evt}}"></td>
+                            <td><input class="form-control" name="cs" type="text" value="{{line.callsign}}"></td>
+                            <td><input class="form-control" name="tm" type="text" value="{{line.times}}"></td>
+                            <td><input class="form-control" name="ac" type="text" value="{{line.aircraft}}"></td>
+                            <td><input class="form-control" name="acrw" type="text" value="{{line.aircrew}}"></td>
+                            <td><input class="form-control" name="msn" type="text" value="{{line.mission}}"></td>
+                            <td><input class="form-control" name="lnch" type="text" value="{{line.launch}}"></td>
+                            <td><input class="form-control" name="out" type="text" value="{{line.out}}"></td>
+                            <td><input class="form-control" name="rcvr" type="text" value="{{line.recover}}"></td>
+                            <td><input class="form-control" name="rmks" type="text" value="{{line.remarks}}"></td>
+                            <td><button class="form-control d-none" type="submit" value="Submit"></td>
+                        </tr>
+
+                    </form>
+
+                {% endfor %}
+           </tbody>
+
+
+            </table>
         </div>
-    </nav>
-
-<div class="col p-1">
-
-
-</head>
-<table id="skedtable" autocomplete="off" spellcheck="false">
-  <thead>
-    <tr>
-      <th colspan="10" style="font-size: 200%"><img class="manImg" src="static/pilot.png" width="130" hspace="150">VFA-122 FLIGHT SCHEDULE<img class="manImg" src="static/nfo.png" width="140" hspace="150"></th>
-    </tr>
-
-  <tr>
-      <th class="eevent">EVT</th>
-      <th class="ccallsign">C/S</th>
-      <th class="ttimes">BRF/TO/LND</th>
-      <th class="aaircraft">AIRCRAFT</th>
-      <th class="aaircrew">AIRCREW</th>
-      <th class="mmission">MSN</th>
-      <th class="llaunch">LNCH</th>
-      <th class="oout">10-OUT</th>
-      <th class="rrecover">RCVR</th>
-      <th class="rremarks">REMARKS</th>
-  </tr>
-
-  </thead>
-    <tbody>
-    {% for line in sked %}
-    <form action="/sked_edit/{{line.id}}" autocomplete="off" method="POST">
-    <tr>
-        <td><input name="evt" onchange="this.form.submit()" type="text" value="{{line.evt}}"></td>
-        <td><input name="cs" onchange="this.form.submit()" type="text" value="{{line.callsign}}"></td>
-        <td><input name="tm" onchange="this.form.submit()" type="text" value="{{line.times}}"></td>
-        <td><input name="ac" onchange="this.form.submit()" type="text" value="{{line.aircraft}}"></td>
-        <td><input name="acrw" onchange="this.form.submit()" type="text" value="{{line.aircrew}}"></td>
-        <td><input name="msn" onchange="this.form.submit()" type="text" value="{{line.mission}}"></td>
-        <td><input name="lnch" onchange="this.form.submit()" type="text" value="{{line.launch}}"></td>
-        <td><input name="out" onchange="this.form.submit()" type="text" value="{{line.out}}"></td>
-        <td><input name="rcvr" onchange="this.form.submit()" type="text" value="{{line.recover}}"></td>
-        <td><textarea name="rmks" rows="1" onchange="this.form.submit()" type="text" value="{{line.remarks}}">{{line.remarks}}</textarea></td>
-    </tr>
-
-    </form>
-    </tbody>
-    {% endfor %}
-
-
-
-</table>
-
+    </div>
 </div>
 <form method="post" action="/schedule/upload" enctype="multipart/form-data">
     <input type=file name=file>
@@ -118,3 +63,30 @@
 </body>
 
 </html>
+
+<script>
+    $(".chatbox").removeClass("d-lg-inline");
+    $(".chatbox").removeClass("col-lg-2");
+    $("#main_content_div").removeClass("p-1");
+    $("#main_content_div").removeClass("col-lg-10");
+    $("#main_content_div").addClass("p-0 m-0");
+
+    $(".schedule_form").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = $(this).serialize(); //Encode form elements for submission
+
+        $.ajax({
+            url: post_url,
+            type: request_method,
+            data: form_data
+        }).done(function (response) { //
+            $("#" + response + "_form").addClass("bg-success");
+        });
+    });
+    $("input").addClass("p-0 m-0");
+    $("input").css('background-color','white');
+</script>
+
+{%endblock%}
