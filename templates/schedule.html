@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="skedheader" class="row" style="font-size: 200%; min-width:100%">
+    <img class="manImg" src="static/pilot.png" width="130" hspace="150">VFA-122 FLIGHT SCHEDULE
+    <img class="manImg" src="static/nfo.png" width="140" hspace="150">
+</div>
 <div class="container-fluid m-0 p-0">
     <div class="row">
         <div class="col-12">
-            <table class="table table-light table-striped table-sm table-light table-borderless table-hover" id="skedtable" autocomplete="off" spellcheck="false">
+            <table name="skedtable" id="skedtable" autocomplete="off" spellcheck="false">
                 <thead >
-                    <tr>
-                        <th colspan="10" style="font-size: 200%"><img class="manImg" src="static/pilot.png" width="130"
-                                hspace="150">VFA-122 FLIGHT SCHEDULE<img class="manImg" src="static/nfo.png" width="140"
-                                hspace="150"></th>
-                    </tr>
 
                     <tr>
                         <th class="eevent">EVT</th>
@@ -31,16 +30,16 @@
 
                     <form class="schedule_form" action="/sked_edit/{{line.id}}" method="POST">
                         <tr id="{{line.id}}_form">
-                            <td><input class="form-control" name="evt" type="text" value="{{line.evt}}"></td>
-                            <td><input class="form-control" name="cs" type="text" value="{{line.callsign}}"></td>
-                            <td><input class="form-control" name="tm" type="text" value="{{line.times}}"></td>
-                            <td><input class="form-control" name="ac" type="text" value="{{line.aircraft}}"></td>
-                            <td><input class="form-control" name="acrw" type="text" value="{{line.aircrew}}"></td>
-                            <td><input class="form-control" name="msn" type="text" value="{{line.mission}}"></td>
-                            <td><input class="form-control" name="lnch" type="text" value="{{line.launch}}"></td>
-                            <td><input class="form-control" name="out" type="text" value="{{line.out}}"></td>
-                            <td><input class="form-control" name="rcvr" type="text" value="{{line.recover}}"></td>
-                            <td><input class="form-control" name="rmks" type="text" value="{{line.remarks}}"></td>
+                            <td><input name="evt" type="text" value="{{line.evt}}"></td>
+                            <td><input name="cs" type="text" value="{{line.callsign}}"></td>
+                            <td><input name="tm" type="text" value="{{line.times}}"></td>
+                            <td><input name="ac" type="text" value="{{line.aircraft}}"></td>
+                            <td><input name="acrw" type="text" value="{{line.aircrew}}"></td>
+                            <td><input name="msn" type="text" value="{{line.mission}}"></td>
+                            <td><input name="lnch" type="text" value="{{line.launch}}"></td>
+                            <td><input name="out" type="text" value="{{line.out}}"></td>
+                            <td><input name="rcvr" type="text" value="{{line.recover}}"></td>
+                            <td><input name="rmks" type="text" value="{{line.remarks}}"></td>
                             <td><button class="form-control d-none" type="submit" value="Submit"></td>
                         </tr>
 
@@ -57,7 +56,7 @@
 <form method="post" action="/schedule/upload" enctype="multipart/form-data">
     <input type=file name=file>
     <input type=submit value=Upload>
-    <div>ONLY "SCHEDULE.csv" FILE ACCEPTED</div>
+    <div>ONLY "SCHEDULE.txt" FILE ACCEPTED</div>
 </form>
 
 </body>
@@ -86,7 +85,6 @@
         });
     });
     $("input").addClass("p-0 m-0");
-    $("input").css('background-color','white');
 </script>
 
 {%endblock%}
