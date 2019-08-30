@@ -202,7 +202,14 @@ def do_admin_login():
                     response = redirect('/')
                     response.set_cookie('username', username)
                     return response
-        return get('login.html').render(username=username)
+                else:
+                    session['logged_in'] = False
+                    response = redirect('/')
+                    return response
+        else:
+            session['logged_in'] = False
+            response = redirect('/')
+            return response
 
 
 @app.route("/logout")
