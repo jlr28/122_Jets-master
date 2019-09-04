@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="skedheader" class="row" style="font-size: 200%; min-width:100%">
-    <img class="manImg" src="static/pilot.png" width="130" hspace="150">VFA-122 FLIGHT SCHEDULE
+
+<script>
+    $(".chatbox").removeClass("d-lg-inline");
+    $(".chatbox").removeClass("col-lg-2");
+    $("#main_content_div").removeClass("p-1");
+    $("#main_content_div").removeClass("col-lg-10");
+    $("#main_content_div").addClass("p-0 m-0");
+</script>
+
+<div id="skedheader" class="row" style="font-size: 200%; width:101%">
+    <img class="manImg" src="static/pilot.png" width="130" hspace="180">VFA-122 FLIGHT SCHEDULE
     <img class="manImg" src="static/nfo.png" width="140" hspace="150">
 </div>
 <div class="container-fluid m-0 p-0">
@@ -22,13 +31,14 @@
                         <th class="oout">10-OUT</th>
                         <th class="rrecover">RCVR</th>
                         <th class="rremarks">REMARKS</th>
+                        <th class="hhide"></th>
                     </tr>
 
                 </thead>
                 <tbody>
                     {% for line in sked %}
 
-                    <form class="schedule_form" action="/sked_edit/{{line.id}}" method="POST">
+                    <form class="schedule_form" action="/sked_edit/{{line.id}}" autocomplete="off" spellcheck="false" method="POST">
                         <tr id="{{line.id}}_form">
                             <td><input name="evt" type="text" value="{{line.evt}}"></td>
                             <td><input name="cs" type="text" value="{{line.callsign}}"></td>
@@ -40,7 +50,8 @@
                             <td><input name="out" type="text" value="{{line.out}}"></td>
                             <td><input name="rcvr" type="text" value="{{line.recover}}"></td>
                             <td><input name="rmks" type="text" value="{{line.remarks}}"></td>
-                            <td><button class="form-control d-none" type="submit" value="Submit"></td>
+                            <td><button name="hide" class="form-control d-none" type="submit" value="Submit"></td>
+
                         </tr>
 
                     </form>
@@ -61,17 +72,9 @@
 
 </body>
 
-</html>
-
 <script>
-    $(".chatbox").removeClass("d-lg-inline");
-    $(".chatbox").removeClass("col-lg-2");
-    $("#main_content_div").removeClass("p-1");
-    $("#main_content_div").removeClass("col-lg-10");
-    $("#main_content_div").addClass("p-0 m-0");
-
     $(".schedule_form").submit(function (event) {
-        event.preventDefault(); //prevent default action 
+        event.preventDefault(); //prevent default action
         var post_url = $(this).attr("action"); //get form action url
         var request_method = $(this).attr("method"); //get form GET/POST method
         var form_data = $(this).serialize(); //Encode form elements for submission
@@ -86,5 +89,7 @@
     });
     $("input").addClass("p-0 m-0");
 </script>
+
+</html>
 
 {%endblock%}

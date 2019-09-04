@@ -2,63 +2,63 @@
 
 {% block content %}
 
-<h1 class="m-3 text-center">Edit Jet</h1>
-<div class="card-deck">
-    <div id="edit" class="p-5 m-5 card shadow-lg text-center text-white
-    {% if jet.side != '-' %}
-    {% if jet.parking %}
-        {% if jet.up %} 
-            {% if jet.fuel >15 %} 
-                bg-success 
-            {%else %}
-                bg-warning 
-            {%endif%}
-    
+    <h1 class="m-3 text-center">Edit Jet</h1>
+    <div class="card-deck">
+        <div id="edit" class="p-5 m-5 card shadow-lg text-center text-white
+        {% if jet.side != '-' %}
+        {% if jet.parking %}
+            {% if jet.up %}
+                {% if jet.fuel >15 %}
+                    bg-success
+                {%else %}
+                    bg-warning
+                {%endif%}
+
+            {% else %}
+                bg-danger
+            {% endif %}
         {% else %}
-            bg-danger
+            bg-primary
         {% endif %}
     {% else %}
-        bg-primary
-    {% endif %}    
-{% else %}
-    bg-dark
-{% endif %}
-    ">
-        <form action="/edit/{{index}}" method="POST">
-            <div class="form-row p-2">
-                <div class="form-group col-md-6">
-                    <label for="side">Side:</label>
-                    <input type="text" class="form-control p-3" name="side" id="side" value="{{ jet.side }}">
+        bg-dark
+    {% endif %}
+        ">
+            <form action="/edit/{{index}}" method="POST">
+                <div class="form-row p-2">
+                    <div class="form-group col-md-6">
+                        <label for="side">Side:</label>
+                        <input type="text" class="form-control p-3" name="side" id="side" value="{{ jet.side }}">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="parking">Parking:</label>
+                        <input type="text" class="form-control" name="parking" id="parking" value="{{ jet.parking }}">
+                    </div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="parking">Parking:</label>
-                    <input type="text" class="form-control" name="parking" id="parking" value="{{ jet.parking }}">
+                <div class="form-row p-2">
+                    <div class="form-group col-md-6">
+                        <label for="fuel">Fuel:</label>
+                        <input type="text" class="form-control" name="fuel" id="fuel" value="{{ jet.fuel }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ordnance">Ordnance:</label>
+                        <input type="text" class="form-control" name="ordnance" id="ordnance" value="{{ jet.ordnance }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="remarks">Remarks:</label>
+                        <textarea name="remarks" onchange="this.form.submit()" type="text" class="form-control form-control-sm"  placeholder="Rmks">{{jet.remarks}}</textarea>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="up">Up:</label>
+                        <input type="checkbox" class="form-control" name="up" id="up" value="True" {% if jet.up %} checked
+                            {%endif%}>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-row p-2">
-                <div class="form-group col-md-6">
-                    <label for="fuel">Fuel:</label>
-                    <input type="text" class="form-control" name="fuel" id="fuel" value="{{ jet.fuel }}">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="ordnance">Ordnance:</label>
-                    <input type="text" class="form-control" name="ordnance" id="ordnance" value="{{ jet.ordnance }}">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="remarks">Remarks:</label>
-                    <textarea name="remarks" onchange="this.form.submit()" type="text" class="form-control form-control-sm"  placeholder="Rmks">{{jet.remarks}}</textarea>
-                </div>
-                <div class="form-group col-md-1">
-                    <label for="up">Up:</label>
-                    <input type="checkbox" class="form-control" name="up" id="up" value="True" {% if jet.up %} checked
-                        {%endif%}>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-lg btn-primary">Update</button>
-        </form>
+                <button type="submit" class="btn btn-lg btn-primary">Update</button>
+            </form>
+        </div>
     </div>
-</div>
 
 {% endblock %}
