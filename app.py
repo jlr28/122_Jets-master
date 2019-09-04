@@ -134,10 +134,8 @@ def getHtml():
 {{msg}}{%endfor%}'''
     return render_template_string(text, settings=settings)
 
-
 try: settings = load_settings()
-except: settings = {'refresh':30, 'rows':3, 'per_row':8, 'msg_lines':15,
-        'messages':[]}
+except: settings = {'refresh':30, 'rows':3, 'per_row':8, 'msg_lines':15, 'link1name':1, 'link1address':1, 'link2name':2, 'link2address':2, 'link3name':3, 'link3address':3, 'link4name':1, 'link4address':1, 'link5name':2, 'link5address':2, 'link6name':3, 'link6address':3,'messages':[]}
 
 ## Make the DB table (if it hasnt been created)
 #db.drop_all()
@@ -201,6 +199,7 @@ def do_admin_login():
                     session['logged_in'] = True
                     response = redirect('/')
                     response.set_cookie('username', username)
+                    print(password)
                     return response
                 else:
                     session['logged_in'] = False
@@ -370,10 +369,13 @@ def get_settings():
         return render_template('login.html')
     else:
         if request.method == 'POST':
-            for k in ['rows', 'refresh','per_row','msg_lines']:
+            for k in ['rows','refresh','per_row','msg_lines']:
                 settings[k]=int(request.form.get(k))
             if settings['refresh']<5:
                 settings['refresh']=5
+            save_settings(settings)
+            for j in ['link1name','link1address','link2name','link2address','link3name','link3address','link4name','link4address','link5name','link5address','link6name','link6address']:
+                settings[j]=request.form.get(j)
             save_settings(settings)
             return redirect('/settings')
         if request.method == 'GET':
