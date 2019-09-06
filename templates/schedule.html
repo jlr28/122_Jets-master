@@ -2,17 +2,12 @@
 
 {% block content %}
 
-<script>
-    $(".chatbox").removeClass("d-lg-inline");
-    $(".chatbox").removeClass("col-lg-2");
-    $("#main_content_div").removeClass("p-1");
-    $("#main_content_div").removeClass("col-lg-10");
-    $("#main_content_div").addClass("p-0 m-0");
-</script>
 
-<div id="skedheader" class="row" style="font-size: 200%; width:101%">
-    <img class="manImg" src="static/pilot.png" width="130" hspace="180">VFA-122 FLIGHT SCHEDULE
-    <img class="manImg" src="static/nfo.png" width="140" hspace="150">
+<div id="skedheader" class="container-fluid w-100">
+    
+    <img class="d-none d-lg-inline manImg" src="static/pilot.png" width="130">
+    <h2 class="d-inline mx-5">VFA-122 FLIGHT SCHEDULE</h2>
+    <img class="d-none d-lg-inline manImg" src="static/nfo.png" width="140">
 </div>
 <div class="container-fluid m-0 p-0">
     <div class="row">

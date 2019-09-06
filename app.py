@@ -192,8 +192,8 @@ def do_admin_login():
     if session.get('logged_in'):
         return redirect('/')
     else:
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
+        username = request.form.get('username').upper()
+        password = request.form.get('password')
         if request.method == 'POST':
                 if (username,password) in [('ODO','eagles'),('SDO','eagles'),('MX','eagles'),('CO','eagles'),('MO','eagles'),('SKEDS','eagles'),('XO','eagles'),('BOSS','eagles')]:
                     session['logged_in'] = True
