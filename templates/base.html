@@ -18,6 +18,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/69cef6d01d.js"></script>
+    <script src="https://unpkg.com/moment"></script>
     <meta http-equiv="refresh" content="{{settings.refresh}}" />
 
 </head>
@@ -49,22 +50,34 @@
                 <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
                     <a class=" nav-link" href="/logout">Logout</a>
                 </li>
-                <li class="text" style="font-size:160%;">
-                    <a href="//24timezones.com/usa_time/ca_kings/lemoore.php" style="text-decoration: none" class="clock24" id="tz24-1564847770-cu114117-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIwIiwic2hvd3NlY29uZHMiOiIxIiwic2hvd3RpbWV6b25lIjoiMCIsInR5cGUiOiJkIiwibGFuZyI6ImVuIn0=" title="Lemoore what time is now" target="_blank"></a>
-                    <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
+                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
+                    <a class=" nav-link">Chat</a>
                 </li>
+
             </ul>
             <ul class="navbar-nav">
+                    <li>
+                            <a id="clock" class="nav-link">loading ...</a>
+                            </li>
                 <li class="nav-item">
                     <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle" style="background-color:transparent; border:none; color:#999999; font-size: 110%; font-weight: 475" href="#" role="button" id="dropdownMenuLink" name="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quick Links</a>
+                        <a class="btn btn-secondary dropdown-toggle"
+                            style="background-color:transparent; border:none; color:#999999; font-size: 110%; font-weight: 475"
+                            href="#" role="button" id="dropdownMenuLink" name="dropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Quick Links</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href={{settings.link1address}} target="_blank">{{settings.link1name}}</a>
-                        <a class="dropdown-item" href={{settings.link2address}} target="_blank">{{settings.link2name}}</a>
-                        <a class="dropdown-item" href={{settings.link3address}} target="_blank">{{settings.link3name}}</a>
-                        <a class="dropdown-item" href={{settings.link4address}} target="_blank">{{settings.link4name}}</a>
-                        <a class="dropdown-item" href={{settings.link5address}} target="_blank">{{settings.link5name}}</a>
-                        <a class="dropdown-item" href={{settings.link6address}} target="_blank">{{settings.link6name}}</a>
+                            <a class="dropdown-item" href={{settings.link1address}}
+                                target="_blank">{{settings.link1name}}</a>
+                            <a class="dropdown-item" href={{settings.link2address}}
+                                target="_blank">{{settings.link2name}}</a>
+                            <a class="dropdown-item" href={{settings.link3address}}
+                                target="_blank">{{settings.link3name}}</a>
+                            <a class="dropdown-item" href={{settings.link4address}}
+                                target="_blank">{{settings.link4name}}</a>
+                            <a class="dropdown-item" href={{settings.link5address}}
+                                target="_blank">{{settings.link5name}}</a>
+                            <a class="dropdown-item" href={{settings.link6address}}
+                                target="_blank">{{settings.link6name}}</a>
                         </div>
                     </div>
                 </li>
@@ -80,7 +93,8 @@
                 <!-- HERE IS THE CHAT STUFF  -->
 
                 <div class="d-flex flex-column">
-                    <textarea id="panelBody" class="border rounded align-items-start bg-white text-dark px-1" spellcheck="false" rows="15" style="text-align:left; overflow:scroll;">{%for msg in settings.messages%}
+                    <textarea id="panelBody" class="border rounded align-items-start bg-white text-dark px-1"
+                        spellcheck="false" rows="15" style="text-align:left; overflow:scroll;">{%for msg in settings.messages%}
 {{msg}}{%endfor%}</textarea>
 
                     <form class="mt-2" action="/message" autocomplete="off" method="POST">
@@ -113,6 +127,13 @@
 
 
     <script>
+        function update() {
+            $('#clock').html(moment().utc().format('H:mm:ss'));
+        }
+
+        setInterval(update, 1000);
+
+
         var interval = 3000; //3 seconds
 
         function recvMessage() {
