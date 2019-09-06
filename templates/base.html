@@ -51,13 +51,13 @@
                     <a class=" nav-link" href="/logout">Logout</a>
                 </li>
                 <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
-                    <a class=" nav-link">Chat</a>
+                    <a id="chat_toggle" class="nav-link">Chat</a>
                 </li>
 
             </ul>
             <ul class="navbar-nav">
                     <li>
-                            <a id="clock" class="nav-link">loading ...</a>
+                            <a id="clock" class="nav-link">3, 2, 1, Hack</a>
                             </li>
                 <li class="nav-item">
                     <div class="dropdown show">
@@ -89,7 +89,7 @@
     <div class="container-fluid m-0 p-0">
         <div class="m-0 p-0 row">
 
-            <div class="chatbox d-none d-lg-inline col-0 col-lg-2 m-0 p-1">
+            <div id="chatbox_div" class="d-none col-2 m-0 p-1">
                 <!-- HERE IS THE CHAT STUFF  -->
 
                 <div class="d-flex flex-column">
@@ -117,7 +117,7 @@
                 <!-- DONE WITH THE CHAT STUFF -->
             </div>
 
-            <div id="main_content_div" class="col-lg-10 col-12 p-1">
+            <div id="main_content_div" class="col-12 col-lg-12 p-1">
                 {% block content %}
                 {% endblock %}
             </div>
@@ -157,6 +157,14 @@
 
         var textarea = document.getElementById('panelBody');
         textarea.scrollTop = textarea.scrollHeight;
+
+
+        $('#chat_toggle').click(function(){
+            $('#chatbox_div').toggleClass('d-lg-block');
+            $('#main_content_div').toggleClass('col-lg-10 col-lg-12');
+            $('#chat_toggle').toggleClass('active');
+
+        });
 
     </script>
 
