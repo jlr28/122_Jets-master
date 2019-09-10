@@ -370,12 +370,12 @@ def jet_edit(i):
 
 @app.route("/message", methods=['POST'])
 def add_message():
+    settings=load_settings()
     username = request.cookies.get('username')
     ## add on new messages to the message list
     settings['messages'].append(username + ': ' + request.form.get("new_message"))
     settings['messages'] = settings['messages'][-settings['msg_lines']:]
     cur_path = request.form.get("cur_path")
-
     save_settings(settings)
     return redirect(cur_path)
 
