@@ -382,6 +382,7 @@ def add_message():
 
 @app.route("/message/delete", methods=['POST'])
 def delete_messages():
+    settings=load_settings()
     settings['messages'] = []
     cur_path = request.form.get("cur_path")
     save_settings(settings)
