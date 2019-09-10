@@ -148,7 +148,7 @@ def getHtml():
 try:
     settings = load_settings()
 except:
-    settings = {'refresh': 30, 'rows': 3, 'per_row': 8, 'msg_lines': 15,'clockoffset': -8,'chatfunction': [],'link1name': 1, 'link1address': 1,
+    settings = {'refresh': 30, 'rows': 3, 'per_row': 8, 'msg_lines': 15,'clockoffset': -8, 'maphangar': True, 'chatfunction': False,'link1name': 1, 'link1address': 1,
                 'link2name': 2, 'link2address': 2, 'link3name': 3, 'link3address': 3, 'link4name': 1, 'link4address': 1,
                 'link5name': 2, 'link5address': 2, 'link6name': 3, 'link6address': 3, 'messages': []}
 
@@ -398,9 +398,8 @@ def get_settings():
                 settings[k] = int(request.form.get(k))
             if settings['refresh'] < 5:
                 settings['refresh'] = 5
-            save_settings(settings)
-            for j in ['chatfunction','link1name', 'link1address', 'link2name', 'link2address', 'link3name', 'link3address',
-                      'link4name', 'link4address', 'link5name', 'link5address', 'link6name', 'link6address']:
+            for j in ['chatfunction','maphangar', 'link1name', 'link1address', 'link2name', 'link2address', 'link3name', 'link3address',
+                      'link4name', 'link4address', 'link5name', 'link5address', 'link6name', 'link6address','chatfunction']:
                 settings[j] = request.form.get(j)
             save_settings(settings)
             return redirect('/settings')

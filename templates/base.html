@@ -31,25 +31,25 @@
                 <!-- <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}">
                     <a class="nav-link" href="/schedule">Schedule</a>
                 </li> -->
-                <li class="nav-item {%if request.path == '/parking'%}active{%endif%}"">
+                <li class="nav-item {%if request.path == '/parking'%}active{%endif%}">
                     <a class=" nav-link" href="/parking">Parking</a>
                 </li>
-                <li class="nav-item {%if request.path == '/jets'%}active{%endif%}"">
+                <li class="nav-item {%if request.path == '/jets'%}active{%endif%}">
                     <a class=" nav-link" href="/jets">Jets</a>
                 </li>
-                <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}"">
+                <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}">
                     <a class=" nav-link" href="/schedule">Schedule</a>
                 </li>
-                <li class="nav-item {%if request.path == '/settings'%}active{%endif%}"">
+                <li class="nav-item {%if request.path == '/settings'%}active{%endif%}">
                     <a class=" nav-link" href="/settings">Settings</a>
                 </li>
-                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
-                    <a class=" nav-link" href="/logout">Logout</a>
-                </li>
-                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}"">
+
+                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}">
                     <a id="chat_toggle" class="nav-link">Chat</a>
                 </li>
-
+                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}">
+                    <a class=" nav-link" href="/logout">Logout</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                     <li>
@@ -88,7 +88,7 @@
     <div class="container-fluid m-0 p-0">
         <div class="m-0 p-0 row">
 
-            <div id="chatbox_div" class="d-none col-2 m-0 p-1">
+            <div id="chatbox_div" class="d-none col-2 m-0 p-0">
                 <!-- HERE IS THE CHAT STUFF  -->
 
                 <div class="d-flex flex-column">
@@ -116,7 +116,7 @@
                 <!-- DONE WITH THE CHAT STUFF -->
             </div>
 
-            <div id="main_content_div" class="col-12 col-lg-12 p-1">
+            <div id="main_content_div" class="col-12 col-lg-12 p-0">
                 {% block content %}
                 {% endblock %}
             </div>
@@ -148,9 +148,19 @@
         }
         $(document).ready(function () {
             setTimeout(recvMessage, interval);
+            {%if settings.chatfunction %}
+            $('#chatbox_div').toggleClass('d-lg-block');
+            $('#main_content_div').toggleClass('col-lg-10 col-lg-12');
+            $('#chat_toggle').toggleClass('active');
+            {%endif%}
         });
         var textarea = document.getElementById('panelBody');
         textarea.scrollTop = textarea.scrollHeight;
+
+        
+
+
+
         $('#chat_toggle').click(function(){
             $('#chatbox_div').toggleClass('d-lg-block');
             $('#main_content_div').toggleClass('col-lg-10 col-lg-12');
