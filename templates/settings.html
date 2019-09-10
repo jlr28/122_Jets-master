@@ -41,14 +41,31 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 1 Name:</label>
+                <label for="clockoffset"  style="text-align:right" class="col-sm-4 col-form-label">Clock Offset(ie. -8):</label>
+                <div class="col-sm-1">
+                    <input type="text" class="form-control" id="clockoffset" name="clockoffset" value={{settings.clockoffset}}>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="chatfunction"  style="text-align:right" class="col-sm-4 col-form-label">Chat Function:</label>
+                <div class="col-sm-1">
+                    <input type="checkbox" class="form-checkbox" id="chatfunction" name="chatfunction" {% if settings.chatfunction %} checked
+                                {%endif%}>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="link1name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 1 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link1name" name="link1name" value={{settings.link1name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 1 Address:</label>
+                <label for="link1address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 1 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link1address" name="link1address" value={{settings.link1address}}>
                 </div>
@@ -56,14 +73,14 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 2 Name:</label>
+                <label for="link2name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 2 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link2name" name="link2name" value={{settings.link2name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 2 Address:</label>
+                <label for="link2address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 2 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link2address" name="link2address" value={{settings.link2address}}>
                 </div>
@@ -71,14 +88,14 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 3 Name:</label>
+                <label for="link3name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 3 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link3name" name="link3name" value={{settings.link3name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 3 Address:</label>
+                <label for="link3address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 3 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link3address" name="link3address" value={{settings.link3address}}>
                 </div>
@@ -86,14 +103,14 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 4 Name:</label>
+                <label for="link4name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 4 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link4name" name="link4name" value={{settings.link4name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 4 Address:</label>
+                <label for="link4address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 4 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link4address" name="link4address" value={{settings.link4address}}>
                 </div>
@@ -101,14 +118,14 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 5 Name:</label>
+                <label for="link5name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 5 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link5name" name="link5name" value={{settings.link5name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 5 Address:</label>
+                <label for="link5address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 5 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link5address" name="link5address" value={{settings.link5address}}>
                 </div>
@@ -116,14 +133,14 @@
             </div>
 
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 6 Name:</label>
+                <label for="link6name"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 6 Name:</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" autocomplete="off" id="link6name" name="link6name" value={{settings.link6name}}>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group row">
-                <label for="refresh"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 6 Address:</label>
+                <label for="link6address"  style="text-align:right" class="col-sm-4 col-form-label">Quick Link 6 Address:</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" autocomplete="off" id="link6address" name="link6address" value={{settings.link6address}}>
                 </div>

@@ -6,17 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VFA 122 Duty Portal</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/style.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="static/jquery/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/69cef6d01d.js"></script>
     <script src="https://unpkg.com/moment"></script>
     <meta http-equiv="refresh" content="{{settings.refresh}}" />
@@ -57,8 +53,11 @@
             </ul>
             <ul class="navbar-nav">
                     <li>
-                            <a id="clock" class="nav-link">3, 2, 1, Hack</a>
-                            </li>
+                        <a id="clock2" style="font-size: 110%" class="nav-link"></a>
+                    </li>
+                    <li>
+                        <a id="clock" style="font-size: 110%" class="nav-link">3, 2, 1, Hack</a>
+                    </li>
                 <li class="nav-item">
                     <div class="dropdown show">
                         <a class="btn btn-secondary dropdown-toggle"
@@ -129,13 +128,10 @@
     <script>
         function update() {
             $('#clock').html(moment().utc().format('H:mm:ss'));
+            $('#clock2').html(moment().utc({{settings.clockoffset}}).format('H:mm:ss'));
         }
-
         setInterval(update, 1000);
-
-
         var interval = 3000; //3 seconds
-
         function recvMessage() {
             $.ajax({
                 url: "/_update_messages",
@@ -150,22 +146,16 @@
             var textarea = document.getElementById('panelBody');
             textarea.scrollTop = textarea.scrollHeight;
         }
-
         $(document).ready(function () {
             setTimeout(recvMessage, interval);
         });
-
         var textarea = document.getElementById('panelBody');
         textarea.scrollTop = textarea.scrollHeight;
-
-
         $('#chat_toggle').click(function(){
             $('#chatbox_div').toggleClass('d-lg-block');
             $('#main_content_div').toggleClass('col-lg-10 col-lg-12');
             $('#chat_toggle').toggleClass('active');
-
         });
-
     </script>
 
 </body>
