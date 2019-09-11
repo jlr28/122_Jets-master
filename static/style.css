@@ -1,7 +1,7 @@
 body {
     background-color:  #4B4E53;
     color: #C0C3CA;
-    width: 100vw;
+    width: 100%;
     margin: 0;
     padding: 0;
 
@@ -11,6 +11,10 @@ a{
     color: #4B4E53;
 }
 
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+    }
 
 #cover_photo{
     /* Set rules to fill background */

@@ -143,12 +143,12 @@ def load_settings():
 def getHtml():
     text = '''{%for msg in settings.messages%}
 {{msg}}{%endfor%}'''
-    return render_template_string(text, settings=settings)
+    return render_template_string(text, settings=load_settings())
 
 try:
     settings = load_settings()
 except:
-    settings = {'refresh': 30, 'rows': 3, 'per_row': 8, 'msg_lines': 15,'clockoffset': -8,'chatfunction': [],'link1name': 1, 'link1address': 1,
+    settings = {'refresh': 30, 'rows': 3, 'per_row': 8, 'msg_lines': 15,'clockoffset': -8, 'maphangar': True, 'chatfunction': False,'link1name': 1, 'link1address': 1,
                 'link2name': 2, 'link2address': 2, 'link3name': 3, 'link3address': 3, 'link4name': 1, 'link4address': 1,
                 'link5name': 2, 'link5address': 2, 'link6name': 3, 'link6address': 3, 'messages': []}
 
@@ -165,7 +165,7 @@ def hello_world():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template('index.html', settings=settings)
+        return render_template('index.html', settings=load_settings())
 
 
 @app.route('/schedule')
@@ -173,7 +173,7 @@ def schedule():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template('schedule.html', sked=get_sked(), settings=settings)
+        return render_template('schedule.html', sked=get_sked(), settings=load_settings())
 
 
 def allowed_file(filename):
@@ -243,7 +243,7 @@ def parking_map():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template('parking.html', jets=fill_parking(), settings=settings)
+        return render_template('parking.html', jets=fill_parking(), settings=load_settings())
 
 
 @app.route('/jets', methods=['GET'])
@@ -252,7 +252,7 @@ def jet_list():
         return render_template('login.html')
     else:
         if request.method == 'GET':
-            return render_template('jets.html', jets=get_jets(), settings=settings)
+            return render_template('jets.html', jets=get_jets(), settings=load_settings())
 
 
 @app.route('/jets/add', methods=['POST'])
@@ -370,18 +370,19 @@ def jet_edit(i):
 
 @app.route("/message", methods=['POST'])
 def add_message():
+    settings=load_settings()
     username = request.cookies.get('username')
     ## add on new messages to the message list
     settings['messages'].append(username + ': ' + request.form.get("new_message"))
     settings['messages'] = settings['messages'][-settings['msg_lines']:]
     cur_path = request.form.get("cur_path")
-
     save_settings(settings)
     return redirect(cur_path)
 
 
 @app.route("/message/delete", methods=['POST'])
 def delete_messages():
+    settings=load_settings()
     settings['messages'] = []
     cur_path = request.form.get("cur_path")
     save_settings(settings)
@@ -398,14 +399,13 @@ def get_settings():
                 settings[k] = int(request.form.get(k))
             if settings['refresh'] < 5:
                 settings['refresh'] = 5
-            save_settings(settings)
-            for j in ['chatfunction','link1name', 'link1address', 'link2name', 'link2address', 'link3name', 'link3address',
+            for j in ['chatfunction','maphangar', 'link1name', 'link1address', 'link2name', 'link2address', 'link3name', 'link3address',
                       'link4name', 'link4address', 'link5name', 'link5address', 'link6name', 'link6address']:
                 settings[j] = request.form.get(j)
             save_settings(settings)
             return redirect('/settings')
         if request.method == 'GET':
-            return render_template('settings.html', settings=settings)
+            return render_template('settings.html', settings=load_settings())
 
 
 @app.route("/_update_messages")
