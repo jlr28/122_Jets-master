@@ -28,9 +28,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <!-- <li class="nav-item {%if request.path == '/schedule'%}active{%endif%}">
-                    <a class="nav-link" href="/schedule">Schedule</a>
-                </li> -->
+
+
                 <li class="nav-item {%if request.path == '/parking'%}active{%endif%}">
                     <a class=" nav-link" href="/parking">Parking</a>
                 </li>
@@ -44,9 +43,6 @@
                     <a class=" nav-link" href="/settings">Settings</a>
                 </li>
 
-                <li class="nav-item {%if request.path == '/logout'%}active{%endif%}">
-                    <a id="chat_toggle" class="nav-link">Chat</a>
-                </li>
                 <li class="nav-item {%if request.path == '/logout'%}active{%endif%}">
                     <a class=" nav-link" href="/logout">Logout</a>
                 </li>
@@ -157,15 +153,6 @@
         var textarea = document.getElementById('panelBody');
         textarea.scrollTop = textarea.scrollHeight;
 
-        
-
-
-
-        $('#chat_toggle').click(function(){
-            $('#chatbox_div').toggleClass('d-lg-block');
-            $('#main_content_div').toggleClass('col-lg-10 col-lg-12');
-            $('#chat_toggle').toggleClass('active');
-        });
     </script>
 
 </body>
