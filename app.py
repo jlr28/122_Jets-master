@@ -167,6 +167,12 @@ def hello_world():
     else:
         return render_template('index.html', settings=load_settings())
 
+@app.route('/help')
+def help():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('help.html', settings=load_settings())
 
 @app.route('/schedule')
 def schedule():
