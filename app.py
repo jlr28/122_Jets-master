@@ -150,7 +150,7 @@ try:
 except:
     settings = {'refresh': 30, 'rows': 3, 'per_row': 8, 'msg_lines': 15,'clockoffset': -8, 'maphangar': True, 'chatfunction': False,'link1name': 1, 'link1address': 1,
                 'link2name': 2, 'link2address': 2, 'link3name': 3, 'link3address': 3, 'link4name': 1, 'link4address': 1,
-                'link5name': 2, 'link5address': 2, 'link6name': 3, 'link6address': 3, 'messages': []}
+                'link5name': 2, 'link5address': 2, 'link6name': 3, 'link6address': 3, 'messages': [], 'disable': False}
 
 
 ## Make the DB table (if it hasnt been created)
@@ -164,28 +164,33 @@ except:
 def hello_world():
     if not session.get('logged_in'):
         return render_template('login.html')
+    if settings.get('disable'):
+        return render_template('settings.html', settings=load_settings())
     else:
         return render_template('index.html', settings=load_settings())
 
-@app.route('/help')
-def help():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
-        return render_template('help.html', settings=load_settings())
 
 @app.route('/schedule')
 def schedule():
     if not session.get('logged_in'):
         return render_template('login.html')
+    if settings.get('disable'):
+        return render_template('settings.html', settings=load_settings())
     else:
         return render_template('schedule.html', sked=get_sked(), settings=load_settings())
-
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/help')
+def help():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    if settings.get('disable'):
+        return render_template('settings.html', settings=load_settings())
+    else:
+        return render_template('help.html', settings=load_settings())
 
 @app.route('/schedule/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -248,6 +253,8 @@ def logout():
 def parking_map():
     if not session.get('logged_in'):
         return render_template('login.html')
+    if settings.get('disable'):
+        return render_template('settings.html', settings=load_settings())
     else:
         return render_template('parking.html', jets=fill_parking(), settings=load_settings())
 
@@ -256,6 +263,8 @@ def parking_map():
 def jet_list():
     if not session.get('logged_in'):
         return render_template('login.html')
+    if settings.get('disable'):
+        return render_template('settings.html', settings=load_settings())
     else:
         if request.method == 'GET':
             return render_template('jets.html', jets=get_jets(), settings=load_settings())
@@ -418,3 +427,33 @@ def get_settings():
 def sendMessagesList():
     rendered = getHtml()
     return rendered
+
+@app.route("/unlock", methods=['GET', 'POST'])
+def unlock():
+    unlock = request.form.get('unlock')
+    if request.method == 'POST':
+        if (unlock) in [('superhornet')]:
+            settings['disable'] = False
+            save_settings(settings)
+            response = redirect('/')
+            print(settings['disable'])
+            return response
+        else:
+            settings['disable'] = True
+            save_settings(settings)
+            response = redirect('/settings')
+            print(settings['disable'])
+            return response
+    else:
+        settings['disable'] = True
+        save_settings(settings)
+        response = redirect('/settings')
+        print(settings['disable'])
+        return response
+
+@app.route("/disable", methods=['GET', 'POST'])
+def disable():
+    settings['disable']=True
+    save_settings(settings)
+    print(settings['disable'])
+    return render_template('index.html', settings=load_settings())
