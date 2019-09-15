@@ -1,43 +1,60 @@
-1	XPERT-11	0900/1000/1100		PILOT, a / WSO, a	FFAM 101				TAC-1
-				PILOT, a / WSO, a	FFAM 101				
-									
-2	XPERT-21	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-2
-				PILOT	LEAD X				
-				PILOT/WSO	FFAM 101				
-				PILOT	FFAM 101				
-									
-3	XPERT-31	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-3
-				PILOT	FFAM 101				
-									
-4	XPERT-41	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-4
-				PILOT	FFAM 101				
-									
-5	XPERT-51	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-5
-				PILOT	LEAD X				
-				PILOT/WSO	FFAM 101				
-				PILOT	FFAM 101				
-									
-6	XPERT-61	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-6
-				PILOT	FFAM 101				
-									
-1	XPERT-11	0900/1000/1100		PILOT, a / WSO, a	FFAM 101				TAC-1
-				PILOT, a / WSO, a	FFAM 101				
-									
-2	XPERT-21	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-2
-				PILOT	LEAD X				
-				PILOT/WSO	FFAM 101				
-				PILOT	FFAM 101				
-									
-3	XPERT-31	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-3
-				PILOT	FFAM 101				
-									
-4	XPERT-41	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-4
-				PILOT	FFAM 101				
-									
-5	XPERT-51	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-5
-				PILOT	LEAD X				
-				PILOT/WSO	FFAM 101				
-				PILOT	FFAM 101				
-									
-6	XPERT-61	0900/1000/1100		PILOT/WSO	FFAM 101				TAC-6
-				PILOT	FFAM 101				
+1	XPERT- 	0700 / 0925 / 1005	112	TIDEI, A / Fulton, J	FFWT 103-W						
+											
+2	XPERT- 	0845 / 0926 / 1031	124	Ash, A / VAUGHT, J	FFWT 102-P						
+											
+3	XPERT- 	0700 / 0927 / 1035	161	DAVIDSON, M / Waller, K	FFWT 103-W						Lemoore MOA, A-E #22547
+											
+4	XPERT- 	0700 / 0928 / 1031	210	Heagen, R / 	FFWT 103-P						Lemoore MOA, A-E #22547
+											
+5	XPERT- 	0700 / 0930 / 1035	100	Berwick, M / 	FFAM 999						
+											
+6	XPERT- 	0745 / 0949 / 1132	122	Norton, J	FFRM 101-P						R-2508
+			216	CDR WYNN, M / HEINZ, D	FFRM Lead-X						R-2508, 
+											
+7	XPERT- 	0800 / 1000 / 1130	 	KING, M / 	AIRNAV						
+											
+8	XPERT- 	0915 / 1115 / 1220	313	CDR Kolwicz, T / 	FBFM 3001						R-2508, 
+											
+9	XPERT- 	0915 / TBD / TBD	 	Perkowski, C / SOUGIANNIS, N	FFRM 101-P						R-2508, 
+											
+10	XPERT- 	0845 / 1130 / 1255	124	HASLAM, C / Tibbs, J	FFWT 102-W						Hunter MOA, HI&LO #8320
+											
+11	XPERT- 	0700 / 1134 / 1255	210	O'Donnell, C / 	FFWT 103-P						
+											
+12	XPERT- 	0845 / 1138 / 1243	161	CDR DIZ, D / Farquharson, I	FFWT 103-W						Hunter MOA, HI&LO #8320
+											
+13	XPERT- 	0915 / 1138 / 1308	222	BOTTICELLI, A / 	FFAM 999						R-2508, 
+											
+14	XPERT- 	0845 / 1140 / 1247	126	Bredemeyer, J / 	FFWT 103-P						
+											
+15	XPERT- 	1015 / 1220 / 1401	216	HEFLIN, A	FFRM Lead-X						R-2508
+			122	Jabaley, A / 	FFRM 101-P						
+				FAULKNER, M							
+											
+16	XPERT- 	0915 / 1225 / 1340	311	Gardetto, J / 	FFAM 999						
+											
+17	XPERT- 	1630 / 1829 / 1929	216	RICKERT, K / 	FFAM 999						R-2508, 
+											
+18	XPERT- 	1630 / 1830 / 1930	 	O'Toole, B / KNICK, B	FFAM 4201						
+											
+19	XPERT- 	1730 / 1940 / 2050	130	CDR SCOTT, W / 	FSTK 3005						Lemoore MOA, A-E #22602
+											
+20	XPERT- 	1830 / 1940 / 2105	224	Warner, T / 	FSTK 999						
+											
+21	XPERT- 	1730 / 1942 / 2055	313	FRASHER, C / 	FSTK Lead-X						
+											
+22	XPERT- 	1830 / 1950 / 2011	126	Reed, W	FSTK 999						
+			161	FEDEWA, P / 	FSTK 999						R-2508, 
+				Rodriguez, R							SUP VAL 2100-2200
+											
+23	XPERT- 	1800 / 2030 / 2140	222	HOLLENDER, S	FFRM Lead-X						Lemoore MOA, A-E #22602
+			227	CDR Hasse, B / 	FFRM 3002						
+											
+											
+24	XPERT- 	1830 / 2030 / 2215	 	Lang, T / 	FSTK 109-W						
+											
+25	XPERT- 	2045 / 2122 / 2155	311	LANHAM, K	FCQL 109						
+			224	Plunkett, R	FCQL 109						
+			122	CALLAN, K	FCQL 109						
+			130	Padden, D	FCQL 109						
+			313	Sadtler, J / 	FCQL 109						

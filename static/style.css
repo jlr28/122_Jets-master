@@ -1,7 +1,7 @@
 body {
     background-color:  #4B4E53;
     color: #C0C3CA;
-    width: 100%;
+    width: 100vw;
     margin: 0;
     padding: 0;
 
@@ -11,10 +11,6 @@ a{
     color: #4B4E53;
 }
 
-.vertical-text {
-    transform: rotate(90deg);
-    transform-origin: left top 0;
-    }
 
 #cover_photo{
     /* Set rules to fill background */
@@ -77,16 +73,20 @@ a{
     margin: 0;
 }
 
+#skedtable th.hide{
+    width: 1%;
+    }
+
 #skedtable th.eevent{
-    width: 3%
+    width: 3%;
 }
 
 #skedtable th.llaunch, th.oout, th.rrecover {
-    width: 5%;
+    width: 4%;
 }
 
 #skedtable th.ccallsign {
-    width: 10%
+    width: 8%;
 }
 
 #skedtable th.ttimes{
@@ -94,7 +94,7 @@ a{
 }
 
 #skedtable th.aaircraft {
-    width: 6%
+    width: 4%;
 }
 
 #skedtable th.mmission {
@@ -102,11 +102,19 @@ a{
 }
 
 #skedtable th.aaircrew {
-    width: 20%
+    width: 22%;
+}
+
+#skedtable th.ttrack{
+    width: 5%;
+}
+
+#skedtable th.ttac {
+    width: 2%;
 }
 
 #skedtable th.rremarks {
-    width: 26%;
+    width: 23%;
 }
 
 #skedtable td {
@@ -115,16 +123,21 @@ a{
     height: 10px;
 }
 
-input[name="evt"],[name="cs"],[name="tm"],[name="ac"],[name="acrw"],[name="msn"],[name="lnch"],[name="out"],[name="rcvr"],[name="rmks"]{
+input[name="evt"],[name="cs"],[name="tm"],[name="ac"],[name="acrw"],[name="msn"],[name="lnch"],[name="out"],[name="rcvr"],[name="trk"], [name="tac"], [name="rmks"]{
     box-sizing: border-box;
     width: 100%;
     max-height: 100%;
     padding: 0px;
     margin 0px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 625;
+    font-size: 105%;
     color: #FFF;
     background: transparent;
     border: none;
     outline: none;
+}
+
+input[name="rmks"]{
+    text-align: left;
 }
