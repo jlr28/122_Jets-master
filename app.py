@@ -9,7 +9,6 @@ import csv
 app = Flask(__name__)
 
 app.secret_key = os.urandom(12)
-
 global user
 
 ##CSV Upload for sked page
@@ -41,6 +40,8 @@ class Sked(db.Model):
     launch = db.Column(db.String(64), nullable=True)
     out = db.Column(db.String(64), nullable=True)
     recover = db.Column(db.String(64), nullable=True)
+    track = db.Column(db.String(64), nullable=True)
+    tac = db.Column(db.String(64), nullable=True)
     remarks = db.Column(db.String(512), nullable=True)
 
 
@@ -78,6 +79,22 @@ def seed_db():
     return True
 
 
+def seed_schedule_db():
+    for j in range(1, 20):
+        new_schedule_event = Sked(id=j, evt=randint(100,200), callsign=randint(100,200), times=randint(100,200),
+                         aircraft=randint(100,200), aircrew=randint(100,200), mission=randint(100,200),
+                         launch=randint(100,200), out=randint(100,200), recover=randint(100,200),
+                         track=randint(100,200), tac=randint(100,200), remarks=randint(100,200))
+        db.session.add(new_schedule_event)
+        db.session.commit()
+    return True
+
+## Make the DB table (if it hasnt been created)
+#db.drop_all()
+#db.create_all()
+#seed_db()
+#seed_schedule_db()
+
 def seed_sked_db():
     with open('static/SCHEDULE.txt', newline='') as csvfile:
         skedreader = list(csv.reader(csvfile, delimiter='\t', quotechar='|'))
@@ -85,13 +102,13 @@ def seed_sked_db():
         if j < len(skedreader):
             new_event = Sked(id=j, evt=skedreader[j][0], callsign=skedreader[j][1], times=skedreader[j][2],
                              aircraft=skedreader[j][3], aircrew=skedreader[j][4], mission=skedreader[j][5],
-                             launch=skedreader[j][6], out=skedreader[j][7],
-                             recover=skedreader[j][8], remarks=skedreader[j][9])
+                             launch=skedreader[j][6], out=skedreader[j][7], recover=skedreader[j][8],
+                             track=skedreader[j][9], tac=skedreader[j][10], remarks=skedreader[j][11])
             db.session.add(new_event)
             db.session.commit()
         elif j >= len(skedreader):
             new_event = Sked(id=j, evt="", callsign="", times="", aircraft="", aircrew="", mission="", launch="",
-                             out="", recover="", remarks="")
+                             out="", recover="", track="", tac="", remarks="")
             db.session.add(new_event)
             db.session.commit()
     return True
@@ -139,6 +156,12 @@ def load_settings():
         settings = pickle.load(f)
     return settings
 
+def is_disabled():
+    settings = load_settings()
+    if settings.get('disable'):
+        return True
+    return False
+
 
 def getHtml():
     text = '''{%for msg in settings.messages%}
@@ -152,7 +175,6 @@ except:
                 'link2name': 2, 'link2address': 2, 'link3name': 3, 'link3address': 3, 'link4name': 1, 'link4address': 1,
                 'link5name': 2, 'link5address': 2, 'link6name': 3, 'link6address': 3, 'messages': [], 'disable': False}
 
-
 ## Make the DB table (if it hasnt been created)
 # db.drop_all()
 # db.create_all()
@@ -164,7 +186,7 @@ except:
 def hello_world():
     if not session.get('logged_in'):
         return render_template('login.html')
-    if settings.get('disable'):
+    if is_disabled():
         return render_template('settings.html', settings=load_settings())
     else:
         return render_template('index.html', settings=load_settings())
@@ -174,7 +196,7 @@ def hello_world():
 def schedule():
     if not session.get('logged_in'):
         return render_template('login.html')
-    if settings.get('disable'):
+    if is_disabled():
         return render_template('settings.html', settings=load_settings())
     else:
         return render_template('schedule.html', sked=get_sked(), settings=load_settings())
@@ -187,7 +209,7 @@ def allowed_file(filename):
 def help():
     if not session.get('logged_in'):
         return render_template('login.html')
-    if settings.get('disable'):
+    if is_disabled():
         return render_template('settings.html', settings=load_settings())
     else:
         return render_template('help.html', settings=load_settings())
@@ -225,7 +247,7 @@ def do_admin_login():
         password = request.form.get('password')
         if request.method == 'POST':
             if (username, password) in [('ODO', 'eagles'), ('SDO', 'eagles'), ('MX', 'eagles'), ('CO', 'eagles'),
-                                        ('MO', 'eagles'), ('SKEDS', 'eagles'), ('XO', 'eagles'), ('BOSS', 'eagles')]:
+                                        ('MO', 'eagles'), ('SKEDS', 'eagles'), ('XO', 'eagles'), ('OPSO', 'eagles')]:
                 session['logged_in'] = True
                 response = redirect('/')
                 response.set_cookie('username', username)
@@ -253,7 +275,7 @@ def logout():
 def parking_map():
     if not session.get('logged_in'):
         return render_template('login.html')
-    if settings.get('disable'):
+    if is_disabled():
         return render_template('settings.html', settings=load_settings())
     else:
         return render_template('parking.html', jets=fill_parking(), settings=load_settings())
@@ -263,7 +285,7 @@ def parking_map():
 def jet_list():
     if not session.get('logged_in'):
         return render_template('login.html')
-    if settings.get('disable'):
+    if is_disabled():
         return render_template('settings.html', settings=load_settings())
     else:
         if request.method == 'GET':
@@ -320,6 +342,8 @@ def sked_edit(i):
     Sked.query.get(int(i)).launch = request.form.get("lnch")
     Sked.query.get(int(i)).out = request.form.get("out")
     Sked.query.get(int(i)).recover = request.form.get("rcvr")
+    Sked.query.get(int(i)).track = request.form.get("trk")
+    Sked.query.get(int(i)).tac = request.form.get("tac")
     Sked.query.get(int(i)).remarks = request.form.get("rmks")
     return i
 
